@@ -49,6 +49,19 @@ public:
             }
         }
     }
+
+    void dfs(int start, vector<bool> &vis)
+    {
+        vis[start] = true;
+        cout << start << " ";
+        for (int neigh : l[start])
+        {
+            if (!vis[neigh])
+            {
+                dfs(neigh, vis);
+            }
+        }
+    }
 };
 
 int main()
@@ -61,7 +74,7 @@ int main()
     cout << "Enter number of edges: ";
     cin >> edges;
 
-    Graph g(vertices+1); 
+    Graph g(vertices + 1);
 
     for (int i = 0; i < edges; i++)
     {
@@ -77,5 +90,9 @@ int main()
     cout << "Enter starting node for BFS: ";
     cin >> start;
 
+    cout << "BFS starting from " << start << ": "<<endl;
     g.bfs(start);
+    vector<bool> vis(vertices + 1, false);
+    cout << "DFS starting from " << start << ": ";
+    g.dfs(start, vis);
 }
