@@ -10,6 +10,8 @@ class Graph
     list<int> *l;
 
 public:
+    int component = 0;
+
     Graph(int v)
     {
         V = v;
@@ -54,6 +56,7 @@ public:
     {
         vis[start] = true;
         cout << start << " ";
+
         for (int neigh : l[start])
         {
             if (!vis[neigh])
@@ -61,6 +64,24 @@ public:
                 dfs(neigh, vis);
             }
         }
+    }
+
+    int count_component()
+    {
+        vector<bool> vis(V, false);
+        component = 0;
+
+        for (int i = 1; i < V; i++)
+        {
+            if (!vis[i])
+            {
+                component++;
+                dfs(i, vis);
+                cout << endl;
+            }
+        }
+
+        return component;
     }
 };
 
@@ -90,9 +111,13 @@ int main()
     cout << "Enter starting node for BFS: ";
     cin >> start;
 
-    cout << "BFS starting from " << start << ": "<<endl;
+    cout << "BFS starting from " << start << ":" << endl;
     g.bfs(start);
+
     vector<bool> vis(vertices + 1, false);
     cout << "DFS starting from " << start << ": ";
     g.dfs(start, vis);
+    cout << endl;
+
+    cout << "No of connected components are : " << g.count_component() << endl;
 }
