@@ -216,23 +216,22 @@ public:
         }
     }
     
-    void reverse()
+   void reverse()
 {
-    Node* curr = Head;
     Node* temp = NULL;
+    Node* current = Head;
 
-    while (curr != NULL)
+    while (current != NULL)
     {
-        temp = curr->prev;
-        curr->prev = curr->next;
-        curr->next = temp;
+        temp = current->prev;
+        current->prev = current->next;
+        current->next = temp;
 
-        curr = curr->prev;
+        current = current->prev;
     }
 
-    temp = Head;
-    Head = Tail;
-    Tail = temp;
+    if (temp != NULL)
+        Head = temp->prev;
 }
 
     void print()
